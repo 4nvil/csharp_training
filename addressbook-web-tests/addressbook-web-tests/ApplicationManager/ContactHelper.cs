@@ -21,6 +21,14 @@ namespace addressbook_web_tests
             return this;
         }
 
+        internal ContactHelper Create(ContactData contactData)
+        {
+            InitNewContactCreation();
+            FillContactForm(contactData);
+            SubmitContactCreation();
+            return this;
+        }
+
         public ContactHelper FillContactForm(ContactData contactData)
         {
             driver.FindElement(By.Name("firstname")).Click();
