@@ -12,10 +12,12 @@ namespace addressbook_web_tests
         [Test]
         public void GroupCreationTest()
         {
-            GroupData group = new GroupData("Group Name Test");
-            group.Header = "Header Test";
-            group.Footer = "Footer Test";
-            app.GroupHelper.Create(group);         
+            GroupData group = new GroupData("Group Name Test")
+            {
+                Header = "Header Test",
+                Footer = "Footer Test"
+            };
+            app.Groups.Create(group);         
             app.Navigator.ReturnToGroupsPage();
             app.Auth.Logout();
         }

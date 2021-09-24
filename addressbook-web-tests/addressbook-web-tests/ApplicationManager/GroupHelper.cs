@@ -14,18 +14,42 @@ namespace addressbook_web_tests
         public GroupHelper(ApplicationManager manager) : base(manager)
         {
         }
+        
 
         public GroupHelper Create (GroupData group)
         {
            manager.Navigator.GoToGroupsPage();
            InitNewGroupCreation();
            FillGroupForm(group);
-           SubmitGroupCreation();
+           Submit();
            return this;
         }
-        public GroupHelper SubmitGroupCreation()
+
+        public GroupHelper Modify(int index, GroupData newData)
+        {
+            manager.Navigator.GoToGroupsPage();
+            SelectGroup(index);
+            EditGroup();
+            FillGroupForm(newData);
+            Update();
+            return this;
+        }
+        
+        public GroupHelper Delete(int index)
+        {
+            manager.Navigator.GoToGroupsPage();
+            DeleteGroup(index);
+            return this;
+        }
+
+        public GroupHelper Submit()
         {
             driver.FindElement(By.Name("submit")).Click();
+            return this;
+        }
+        public GroupHelper Update()
+        {
+            driver.FindElement(By.Name("update")).Click();
             return this;
         }
 
@@ -49,6 +73,23 @@ namespace addressbook_web_tests
             driver.FindElement(By.Name("new")).Click();
             return this;
         }
+        public GroupHelper DeleteGroup(int index)
+        {
+            SelectGroup(index);
+            driver.FindElement(By.Name("delete")).Click();
+            return this;
+        }
 
+        public GroupHelper SelectGroup(int index)
+        {
+            driver.FindElement(By.XPath("//div[@id='content']/form/span[" + index + "]/input")).Click();
+            return this;
+        }
+   
+        public GroupHelper EditGroup()
+        {
+            driver.FindElement(By.Name("edit")).Click();
+            return this;
+        }
     }
 }

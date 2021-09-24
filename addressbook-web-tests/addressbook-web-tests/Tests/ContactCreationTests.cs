@@ -12,7 +12,7 @@ namespace addressbook_web_tests
         [Test]
         public void ContactCreationTest()
         {
-            app.ContactHelper.Create(new ContactData("Fist", "Last"));
+            app.Contacts.Create(new ContactData("Fist", "Last"));
             app.Navigator.ReturnToHomePage();
             app.Auth.Logout();
         }

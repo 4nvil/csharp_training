@@ -15,11 +15,22 @@ namespace addressbook_web_tests
         {
         }
 
-        public ContactHelper SubmitContactCreation()
+        public ContactHelper Delete(int index)
         {
-            driver.FindElement(By.Name("submit")).Click();
+            SelectContact(index);
+            DeleteContact();
+            CloseAlert();
             return this;
         }
+
+        public ContactHelper Modify(int index, ContactData contactData)
+        {
+            OpenEditContactForm(index);
+            FillContactForm(contactData);
+            UpdateContact();
+            return this;
+        }
+  
 
         internal ContactHelper Create(ContactData contactData)
         {
@@ -42,6 +53,33 @@ namespace addressbook_web_tests
         public ContactHelper InitNewContactCreation()
         {
             driver.FindElement(By.LinkText("add new")).Click();
+            return this;
+        }
+        public ContactHelper SubmitContactCreation()
+        {
+            driver.FindElement(By.Name("submit")).Click();
+            return this;
+        }
+        public ContactHelper UpdateContact()
+        {
+            driver.FindElement(By.Name("update")).Click();
+            return this;
+        }
+        public ContactHelper DeleteContact()
+        {
+            driver.FindElement(By.XPath("//input[@value='Delete']")).Click();
+            return this;
+        }
+        public ContactHelper OpenEditContactForm(int index)
+        {
+            index += 1;
+            driver.FindElement(By.XPath("//tr[" + index + "]/td[8]/a/img")).Click();
+            return this;
+        }
+        public ContactHelper SelectContact(int index)
+        {
+            index += 1;
+            driver.FindElement(By.XPath("//tr[" + index + "]/td/input")).Click();
             return this;
         }
     }

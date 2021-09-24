@@ -18,7 +18,7 @@ namespace addressbook_web_tests
             this.manager = manager;
             driver = manager.Driver;
         }
-        public void closeAlert()
+        public void CloseAlert()
         {
             driver.SwitchTo().Alert().Accept();
         }

@@ -20,8 +20,8 @@ namespace addressbook_web_tests
 
         public LoginHelper Auth { get => loginHelper; }
         public NavigationHelper Navigator { get => navigator; }
-        public GroupHelper GroupHelper { get => groupHelper; }
-        public ContactHelper ContactHelper { get => contactHelper; }
+        public GroupHelper Groups { get => groupHelper; }
+        public ContactHelper Contacts { get => contactHelper; }
         public IWebDriver Driver { get => driver; }
 
         public ApplicationManager()
