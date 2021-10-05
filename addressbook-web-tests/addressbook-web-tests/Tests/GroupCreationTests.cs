@@ -18,7 +18,7 @@ namespace addressbook_web_tests
                 Footer = "Footer Test"
             };
             app.Groups.Create(group);         
-            app.Navigator.ReturnToHomePage();
+            app.Navigator.ReturnToGroupsPage();
 
         }
     }
