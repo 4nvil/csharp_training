@@ -8,13 +8,12 @@ using NUnit.Framework;
 namespace addressbook_web_tests
 {
     [TestFixture]
-    class ContactDeletionTests : TestBase
+    class ContactDeletionTests : AuthTestBase
     {
         [Test]
         public void ContactDeletionTest()
         {
             app.Contacts.Delete(1);
-            app.Auth.Logout();
         }
     }
 }

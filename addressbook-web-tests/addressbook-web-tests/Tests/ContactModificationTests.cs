@@ -9,14 +9,13 @@ using NUnit.Framework;
 namespace addressbook_web_tests
 {
     [TestFixture]
-    public class ContactModificationTests : TestBase
+    public class ContactModificationTests : AuthTestBase
     {
         [Test]
         public void ContactModificationTest()
         {
             app.Contacts.Modify(1, new ContactData("Modified-Fist", "Modified-Last"));
             app.Navigator.ReturnToHomePage();
-            app.Auth.Logout();
         }
     }
 }

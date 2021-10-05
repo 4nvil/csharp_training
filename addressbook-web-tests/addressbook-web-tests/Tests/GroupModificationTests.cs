@@ -8,12 +8,12 @@ using NUnit.Framework;
 namespace addressbook_web_tests
 {
     [TestFixture]
-    public class GroupModificationTests : TestBase
+    public class GroupModificationTests : AuthTestBase
     {
         [Test]
         public void GroupModificationTest()
         {
-            GroupData newData = new GroupData("New Group Name Test")
+            GroupData newData = new GroupData("New_Group_Name_Test")
             {
                 Header = "New Header Test",
                 Footer = "New Footer Test"
@@ -21,7 +21,6 @@ namespace addressbook_web_tests
 
             app.Groups.Modify(1, newData);
             app.Navigator.ReturnToGroupsPage();
-            app.Auth.Logout();
         }
     }
 }

@@ -8,14 +8,13 @@ using NUnit.Framework;
 namespace addressbook_web_tests
 {
     [TestFixture]
-    public class GroupDeletionTests : TestBase
+    public class GroupDeletionTests : AuthTestBase
     {
         [Test]
         public void GroupDeletionTest()
         {
             app.Groups.Delete(1);
             app.Navigator.ReturnToGroupsPage();
-            app.Auth.Logout();
         }
     }
 }
