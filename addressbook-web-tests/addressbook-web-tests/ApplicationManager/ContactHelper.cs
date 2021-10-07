@@ -17,39 +17,28 @@ namespace addressbook_web_tests
 
         public ContactHelper Delete(int index)
         {
-            if (IsElementPresent(By.XPath("//tr[2]/td/input")))
-            {
-                SelectContact(index);
-                DeleteContact();
-                CloseAlert();
-            }
-            else
-            {
-                index = 1;
-                Create(new ContactData("First","Last"));
-                manager.Navigator.ReturnToHomePage();
-                Delete(index);
-            }
-            
+            SelectContact(index);
+            DeleteContact();
+            CloseAlert();           
             return this;
         }
 
-        public ContactHelper Modify(int index, ContactData contactData)
+        public bool AtLeastOneGroupCreated()
         {
             if (IsElementPresent(By.XPath("//tr[2]/td/input")))
             {
-                OpenEditContactForm(index);
-                FillContactForm(contactData);
-                UpdateContact();
+                return true;
             }
             else
             {
-                index = 1;
-                Create(contactData);
-                manager.Navigator.ReturnToHomePage();
-                Modify(index, contactData);
+                return false;
             }
-            
+        }
+        public ContactHelper Modify(int index, ContactData contactData)
+        {
+            OpenEditContactForm(index);
+            FillContactForm(contactData);
+            UpdateContact();
             return this;
         }
           public ContactHelper Create(ContactData contactData)

@@ -13,8 +13,20 @@ namespace addressbook_web_tests
         [Test]
         public void GroupDeletionTest()
         {
-            app.Groups.Delete(1);
-            app.Navigator.ReturnToGroupsPage();
+            app.Navigator.GoToGroupsPage();
+            if (app.Groups.AtLeastOneGroupCreated())
+            {
+                app.Groups.Delete(1);
+                app.Navigator.ReturnToGroupsPage();
+            }
+            else
+            {
+                int index = 1;
+                GroupData newGroup = new GroupData("New Group Name");
+                app.Groups.Create(newGroup);
+                app.Navigator.ReturnToGroupsPage();
+                app.Groups.Delete(index);
+            }
         }
     }
 }

@@ -15,6 +15,17 @@ namespace addressbook_web_tests
         {
         }
         
+        public bool AtLeastOneGroupCreated()
+        {
+            if (IsElementPresent(By.XPath("//div[@id='content']/form/span[1]/input")))
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
 
         public GroupHelper Create (GroupData group)
         {
@@ -27,21 +38,12 @@ namespace addressbook_web_tests
 
         public GroupHelper Modify(int index, GroupData newData)
         {
-            manager.Navigator.GoToGroupsPage();
-            if (IsElementPresent(By.XPath("//div[@id='content']/form/span[1]/input"))){              
-                SelectGroup(index);
-                EditGroup();
-                FillGroupForm(newData);
-                Update();
-            }
-            else
-            {
-                index = 1;
-                Create(new GroupData("Empty group"));
-                Modify(index, newData);
-            }
-                return this;
-
+            manager.Navigator.GoToGroupsPage();              
+            SelectGroup(index);
+            EditGroup();
+            FillGroupForm(newData);
+            Update();
+            return this;
         }
         
         public GroupHelper Delete(int index)

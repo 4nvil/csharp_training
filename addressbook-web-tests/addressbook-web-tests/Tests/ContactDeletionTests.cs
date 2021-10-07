@@ -13,7 +13,17 @@ namespace addressbook_web_tests
         [Test]
         public void ContactDeletionTest()
         {
-            app.Contacts.Delete(1);
+            if (app.Contacts.AtLeastOneGroupCreated())
+            {
+                app.Contacts.Delete(1);
+            }
+            else
+            {
+                int index = 1;
+                app.Contacts.Create(new ContactData("Created-Fist", "Created-Last"));
+                app.Navigator.ReturnToHomePage();
+                app.Contacts.Delete(index);
+            }         
         }
     }
 }
