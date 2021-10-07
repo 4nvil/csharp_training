@@ -14,7 +14,7 @@ namespace addressbook_web_tests
         [Test]
         public void ContactModificationTest()
         {
-            app.Contacts.Modify(1, new ContactData("Modified-Fist", "Modified-Last"));
+            app.Contacts.Modify(1, new ContactData("Midified-Fist", "Modified-Last"));
             app.Navigator.ReturnToHomePage();
         }
     }
