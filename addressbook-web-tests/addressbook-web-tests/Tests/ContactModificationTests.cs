@@ -14,18 +14,15 @@ namespace addressbook_web_tests
         [Test]
         public void ContactModificationTest()
         {
-            if (app.Contacts.AtLeastOneGroupCreated())
+            int contactIndex = 1;
+            if (!app.Contacts.AtLeastOneGroupCreated())
             {
-                app.Contacts.Modify(1, new ContactData("Modified-Fist", "Modified-Last"));
+                app.Contacts.Create(new ContactData("Initial-Fist", "Initial-Last"));
                 app.Navigator.ReturnToHomePage();
-            }
-            else
-            {
-                int index = 1;
-                app.Contacts.Create(new ContactData("Created-Fist", "Created-Last"));
-                app.Navigator.ReturnToHomePage();
-                app.Contacts.Modify(index, new ContactData("Modified-Fist", "Modified-Last"));
-            }
+                contactIndex = 1;
+            }          
+            app.Contacts.Modify(contactIndex, new ContactData("Modified-Fist", "Modified-Last"));
+            app.Navigator.ReturnToHomePage();
         }
     }
 }
