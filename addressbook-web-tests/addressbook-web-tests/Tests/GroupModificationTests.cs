@@ -13,29 +13,29 @@ namespace addressbook_web_tests
         [Test]
         public void GroupModificationTest()
         {
-            int groupIndex = 1;
+            int groupIndex = 0;
             app.Navigator.GoToGroupsPage();
 
             if (!app.Groups.AtLeastOneGroupCreated())
             {
-                GroupData initialData = new GroupData("Initial_Group_Name")
-                {
-                    Header = "Initial Header Test",
-                    Footer = "Initial Footer Test"
-                };
+                GroupData initialData = new GroupData("Initial_Group_Name");
                 app.Groups.Create(initialData);
                 app.Navigator.ReturnToGroupsPage();
-                groupIndex = 1;
+                groupIndex = 0;
             }
-            
-            GroupData newData = new GroupData("Modified_Group_Name")
-            {
-                Header = "Modified Header Test",
-                Footer = "Modified Footer Test"
-            };
 
+            GroupData newData = new GroupData("Modified_Group_Name");
+            List<GroupData> oldGroups = app.Groups.GetGroupsList();
+            
             app.Groups.Modify(groupIndex, newData);
-            app.Navigator.ReturnToGroupsPage();
+            List<GroupData> newGroups = app.Groups.GetGroupsList();
+            
+            oldGroups[groupIndex].Name = newData.Name;
+            
+            oldGroups.Sort();
+            newGroups.Sort();
+            
+            Assert.AreEqual(oldGroups, newGroups);
         }
     }
 }

@@ -13,14 +13,20 @@ namespace addressbook_web_tests
         [Test]
         public void ContactDeletionTest()
         {
-            int contactIndex = 1;
+            int contactIndex = 3;
             if (!app.Contacts.AtLeastOneGroupCreated())
             {
-                app.Contacts.Create(new ContactData("Created-Fist", "Created-Last"));
+                ContactData data = new ContactData("Created-Fist", "Created-Last");
+                app.Contacts.Create(data);
                 app.Navigator.ReturnToHomePage();
                 contactIndex = 1;
-            }           
+            }
+            List<ContactData> oldContacts = app.Contacts.GetContactsList();
             app.Contacts.Delete(contactIndex);
+            List<ContactData> newContacts = app.Contacts.GetContactsList();
+            oldContacts.RemoveAt(contactIndex - 1);
+            
+            Assert.AreEqual(oldContacts, newContacts);
         }
     }
 }

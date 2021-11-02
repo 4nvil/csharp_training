@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading;
@@ -12,14 +13,22 @@ namespace addressbook_web_tests
         [Test]
         public void GroupCreationTest()
         {
-            GroupData group = new GroupData("Group Name Test")
+            GroupData group = new GroupData("Group Name Test123")
             {
                 Header = "Header Test",
                 Footer = "Footer Test"
             };
-            app.Groups.Create(group);         
-            app.Navigator.ReturnToGroupsPage();
 
+            List<GroupData> oldGroups = app.Groups.GetGroupsList();
+            
+            app.Groups.Create(group);          
+
+            List<GroupData> newGroups = app.Groups.GetGroupsList();
+            oldGroups.Add(group);
+            oldGroups.Sort();
+            newGroups.Sort();
+
+            Assert.AreEqual(oldGroups, newGroups);
         }
     }
 }

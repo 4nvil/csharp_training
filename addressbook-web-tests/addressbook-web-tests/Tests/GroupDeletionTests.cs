@@ -13,16 +13,24 @@ namespace addressbook_web_tests
         [Test]
         public void GroupDeletionTest()
         {
-            int groupIndex = 1;
-            app.Navigator.GoToGroupsPage();
+            int groupIndex = 0;
+            app.Navigator.GoToGroupsPage();           
+            
             if (!app.Groups.AtLeastOneGroupCreated())
             {
-                app.Groups.Create(new GroupData("New Group Name"));
+                GroupData data = new GroupData("New Group Name");
+                app.Groups.Create(data);
                 app.Navigator.ReturnToGroupsPage();
-                groupIndex = 1;
-            }           
-            app.Groups.Delete(groupIndex);
-            app.Navigator.ReturnToGroupsPage();         
+                groupIndex = 0;
+            }
+
+            List<GroupData> oldGroups = app.Groups.GetGroupsList();         
+            app.Groups.Delete(groupIndex);      
+            List<GroupData> newGroups = app.Groups.GetGroupsList();           
+            oldGroups.RemoveAt(groupIndex);
+            newGroups.Sort();
+            oldGroups.Sort();
+            Assert.AreEqual(newGroups, oldGroups);
         }
     }
 }

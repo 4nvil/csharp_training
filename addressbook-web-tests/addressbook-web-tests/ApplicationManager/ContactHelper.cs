@@ -23,6 +23,21 @@ namespace addressbook_web_tests
             return this;
         }
 
+        public List<ContactData> GetContactsList()
+        {
+            manager.Navigator.OpenHomePage();
+            List<ContactData> contactsList = new List<ContactData>();
+            ICollection<IWebElement> elements = driver.FindElements(By.Name("entry"));
+                foreach (IWebElement element in elements)
+                {
+                    IList<IWebElement> cells = element.FindElements(By.CssSelector("td"));
+                    string firstName = cells[2].Text;
+                    string lastName = cells[1].Text;
+                    contactsList.Add(new ContactData(firstName, lastName));
+                }
+            return contactsList;
+        }
+
         public bool AtLeastOneGroupCreated()
         {
             if (IsElementPresent(By.XPath("//tr[2]/td/input")))
@@ -80,8 +95,8 @@ namespace addressbook_web_tests
             return this;
         }
         public ContactHelper OpenEditContactForm(int index)
-        {
-            index += 1;
+       {
+            index += 2;
             driver.FindElement(By.XPath("//tr[" + index + "]/td[8]/a/img")).Click();
             return this;
         }
